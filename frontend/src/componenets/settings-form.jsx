@@ -6,7 +6,7 @@ import {
   ComboboxOptions,
   Transition,
 } from "@headlessui/react";
-import React, { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiCheck } from "react-icons/bi";
 import { BsChevronExpand } from "react-icons/bs";
