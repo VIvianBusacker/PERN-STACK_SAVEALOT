@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { FaBtc, FaPaypal } from "react-icons/fa";
 import { GiCash } from "react-icons/gi";
 import { RiVisaLine } from "react-icons/ri";

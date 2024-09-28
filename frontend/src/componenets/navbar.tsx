@@ -13,7 +13,7 @@ import { auth } from "../libs/firebaseConfig";
 import useStore from "../store";
 import ThemeSwitch from "./switch";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import TransitionWrapper from "./wrappers/transition-wrapper";
+// import TransitionWrapper from "./wrappers/transition-wrapper";
 
 //import ProfileInfo from './profile-info'; // or correct path if different
 

@@ -13,8 +13,9 @@ export const maskAccountNumber = (accountNumber) => {
   return `${firstFour}${maskedDigits}${lastFour}`;
 };
 
-export const formatCurrency = (value, code) => {
-  const user = JSON.parse(localStorage.getItem("user"));
+// export const formatCurrency = (value, code) => {
+  export const formatCurrency = (value) => {
+    const user = JSON.parse(localStorage.getItem("user"));
 
   if (isNaN(value)) {
     return "Invalid input";

@@ -1,4 +1,5 @@
-import React from "react";
+// import React from "react";
+import PropTypes from 'prop-types';
 
 const Info = ({ title, subTitle }) => {
   return (
@@ -12,5 +13,10 @@ const Info = ({ title, subTitle }) => {
     </div>
   );
 };
+
+Info.propTypes = {
+  title: PropTypes.string.isRequired,
+  subTitle: PropTypes.string.isRequired
+}
 
 export default Info;

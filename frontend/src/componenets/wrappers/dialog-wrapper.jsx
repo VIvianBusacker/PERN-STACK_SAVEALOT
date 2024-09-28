@@ -1,11 +1,12 @@
-import { Dialog, Transition, TransitionChild } from "@headlessui/react";
-import React, { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react"; // Remove TransitionChild
+import { Fragment } from "react";
+import PropTypes from 'prop-types';
 
 const DialogWrapper = ({ isOpen, closeModal, children }) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as='div' className='relative z-50' onClose={closeModal}>
-        <TransitionChild
+        <Transition.Child // Use Transition.Child instead of TransitionChild
           as={Fragment}
           enter='ease-out duration-300'
           enterFrom='opacity-0'
@@ -15,11 +16,11 @@ const DialogWrapper = ({ isOpen, closeModal, children }) => {
           leaveTo='opacity-0'
         >
           <div className='fixed inset-0 bg-black/60' />
-        </TransitionChild>
+        </Transition.Child>
 
         <div className='fixed inset-0 overflow-y-auto'>
           <div className='flex min-h-full items-center justify-center p-4 text-center'>
-            <TransitionChild
+            <Transition.Child // Use Transition.Child here as well
               as={Fragment}
               enter='ease-out duration-300'
               enterFrom='opacity-0 scale-95'
@@ -29,12 +30,18 @@ const DialogWrapper = ({ isOpen, closeModal, children }) => {
               leaveTo='opacity-0 scale-95'
             >
               {children}
-            </TransitionChild>
+            </Transition.Child>
           </div>
         </div>
       </Dialog>
     </Transition>
   );
+};
+
+DialogWrapper.propTypes = {
+  isOpen: PropTypes.bool.isRequired,    // Corrected to bool
+  closeModal: PropTypes.func.isRequired, // Corrected to func
+  children: PropTypes.node.isRequired,
 };
 
 export default DialogWrapper;

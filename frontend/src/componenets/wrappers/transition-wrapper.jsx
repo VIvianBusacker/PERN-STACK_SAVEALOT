@@ -1,5 +1,6 @@
 import { Transition } from "@headlessui/react";
-import React, { Fragment } from "react";
+import { Fragment } from "react";
+import PropTypes from 'prop-types';
 
 const TransitionWrapper = ({ children }) => {
   return (
@@ -15,6 +16,10 @@ const TransitionWrapper = ({ children }) => {
       {children}
     </Transition>
   );
+};
+
+TransitionWrapper.propTypes = {
+  children: PropTypes.node.isRequired, // Changed to node
 };
 
 export default TransitionWrapper;

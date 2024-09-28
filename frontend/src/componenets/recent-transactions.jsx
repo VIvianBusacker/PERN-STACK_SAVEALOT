@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import { RiProgress3Line } from "react-icons/ri";
 import { TiWarning } from "react-icons/ti";
@@ -11,13 +11,11 @@ const RecentTransactions = ({ data }) => {
   return (
     <div className="flex-1 w-full py-20">
       <div className="flex items-center justify-between">
-        <Title title="Latest Transactions" />
+        <Title title="Recent Transactions" />
         <Link
-          to="/transactions"
-          className='text-sm text-gray-600 dark:text-gray-500 hover"text-violet-600 hover:underline mr-5'
-        >
-          View All
-        </Link>
+            to="/transactions" className="text-sm text-gray-600 dark:text-gray-500 hover:text-violet-600 hover:underline mr-5">
+  View All
+</Link>
       </div>
 
       <div className="mt-5 overflow-x-auto">
@@ -36,8 +34,7 @@ const RecentTransactions = ({ data }) => {
             {data?.map((item, index) => (
               <tr
                 key={index}
-                className="text-sm text-gray-600 border-b border-gray-200 dark:border-gray-700 dark:text-gray-500 hover:bg-gray-300/10 md:text-base"
-              >
+                className='text-sm text-gray-600 dark:text-gray-500 hover"text-violet-600 hover:underline mr-5'>
                 <td className="py-4">
                   {new Date(item.createdat).toLocaleDateString()}
                 </td>

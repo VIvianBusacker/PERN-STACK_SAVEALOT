@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiLoader } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
@@ -47,7 +47,7 @@ export default function SigninPage() {
   const [loading, setLoading] = useState(false);
 
   // State to toggle password visibility
-  const [showPassword, setShowPassword] = useState(false);
+  //const [showPassword, setShowPassword] = useState(false);
 
   // Track focused fields for label behavior
   const [focusedField, setFocusedField] = useState({

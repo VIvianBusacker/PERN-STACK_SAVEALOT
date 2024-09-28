@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaBtc, FaPaypal } from "react-icons/fa";
 import { GiCash } from "react-icons/gi";
 import { MdAdd, MdVerifiedUser } from "react-icons/md";
@@ -86,7 +86,7 @@ const AccountsPage = () => {
 
   return (
     <>
-      <div classdescription='w-full py-10'>
+      <div className='w-full py-10'>
         <div className='flex items-center justify-between'>
           <Title title='Accounts Information' />
           <div className='flex items-center gap-4'>
