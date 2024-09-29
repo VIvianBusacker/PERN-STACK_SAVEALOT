@@ -13,6 +13,9 @@ import { auth } from "../libs/firebaseConfig";
 import useStore from "../store";
 import ThemeSwitch from "./switch";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+
+
+
 // import TransitionWrapper from "./wrappers/transition-wrapper";
 
 //import ProfileInfo from './profile-info'; // or correct path if different
@@ -46,12 +49,31 @@ const Navbar = () => {
   const [selected, setSelected] = useState(0);
   const [menuVisible, setMenuVisible] = useState(false);
   
+  const [profileImage, setProfileImage] = useState(null); // Profile image state
 
 
-
-
-
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const imageData = reader.result; // Base64 image data
+        setProfileImage(imageData); // Set profile image
+        localStorage.setItem("profileImage", imageData); // Save to localStorage
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  
 //  ////////////////////////////////////////////////////////////////////
+  // Fetch profile image from localStorage on component load
+  useEffect(() => {
+    const savedImage = localStorage.getItem("profileImage");
+    if (savedImage) {
+      setProfileImage(savedImage); // Set the profile image from localStorage
+    }
+  }, []);
+  
 // SignIn & SignOut ------------------------
   const handleSingout = async () => {
     if (user.provider === "google") {
@@ -109,21 +131,114 @@ const Navbar = () => {
         <div className="fixed inset-0 z-50 flex">
           <div className="w-64 h-full bg-white dark:bg-gray-900 shadow-lg flex flex-col">
             <div className="flex flex-col p-4">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ {/* Profile Image */}
               <div className="flex items-center space-x-4 mb-6">
-              <img
+              {/* <img
                 src={Avatar}
                 alt="User"
                 className="w-14 h-14 rounded-full object-cover cursor-pointer"
-              />
+              /> */}
+          {profileImage ? (
+          <img
+            src={profileImage}
+            alt="Profile"
+            className="w-16 h-16 rounded-full object-cover cursor-pointer"
+          />
+        ) : (
+          <div className="flex items-center justify-center w-14 h-14 text-white rounded-full bg-blue-500">
+            <p className="text-3xl font-bold">{user?.firstname?.charAt(0)}</p>
+          </div>
+        )}
+
+            
                 <div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       {/* First letter char(0) => <p className="text-1lx font-bold">{user?.firstname?.charAt(0)}</p> */}
-                <p className="text-lx font-medium text-black dark:text-gray-400">{user?.firstname}</p>
+                <p className="text-lx font-medium text-black dark:text-gray-400 items-center px-2">{user?.firstname}</p>
 
                 {/*EMAIL ADRESS <span className="text-sm text-gray-700 dark:text-gray-500">{user?.email}</span> */}
 
                 <Link to="/ManageProfile">   {/*NEED FIXING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/}
                   <button
-                    className={`text-sm text-blue-500 hover:underline mb-4 flex w-full items-center rounded-md px-2 py-2`}
+                    className={`text-sm text-gray-600 hover:underline mb-4 flex w-full items-center rounded-md px-2 py-2`}
                     onClick={() => setOpenSidebar(false)} >
                      Manage Profile
                   </button>

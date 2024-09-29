@@ -5,13 +5,16 @@ import { fetchCountries } from "../libs";
 import api from "../libs/apiCall";
 import useStore from "../store";
 import { Link } from "react-router-dom";
+import EditProfilePicture from "../settingpage/editProfilePicture";
 
-const SettingsPage = () => {
+const AccountPreferences = () => {
   const { user, theme, setTheme } = useStore((state) => state);
   const [selectedCountry, setSelectedCountry] = useState({ country: user?.country, currency: user?.currency } || "");
   const [query, setQuery] = useState("");
   const [countriesData, setCountriesData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [profileImage, setProfileImage] = useState(null); // State for profile image
+  const [avatar, setAvatar] = useState(null); // Declare avatar state
 
   // Function to handle form submission
   const submitHandler = async (data) => {
@@ -50,6 +53,10 @@ const SettingsPage = () => {
 
   useEffect(() => {
     getCountriesList();
+    const savedImage = localStorage.getItem('profileImage');
+    if (savedImage) {
+      setAvatar(savedImage); // Load the image from localStorage if it exists
+    }
   }, []);
 
   // Sidebar component for settings navigation
@@ -80,12 +87,11 @@ const SettingsPage = () => {
       <SectionWrapper title="Profile Information" description="Name, phone number, and email address" />
     </Link>
   );
-  
 
   // Display Section for user display preferences
   const DisplaySection = () => (
     <Link to="/manageprofile">
-    <SectionWrapper title="Display" />
+      <SectionWrapper title="Display" />
     </Link>
   );
 
@@ -137,4 +143,4 @@ const SettingsPage = () => {
   );
 };
 
-export default SettingsPage;
+export default AccountPreferences;

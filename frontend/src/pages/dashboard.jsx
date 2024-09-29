@@ -69,7 +69,7 @@ const Dashboard = () => {
         }}
         className="mb-10"
       />
-      <div className="flex flex-col-reverse gap-10 md:flex-row md:justify-between w-full mb-10">
+      <div className="flex flex-col-reverse gap-10 md:flex-row md:justify-between w-full mb-10 bg-transparent">
         <Chart data={data?.chartData || []} />
         {data?.totalIncome > 0 && (
           <DoughnutChart

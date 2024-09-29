@@ -8,6 +8,9 @@ import useStore from "./store";
 import { SignupPage } from "./pages/auth/sign-up";
 import SigninPage from "./pages/auth/sign-in";
 import ManageProfile from "./componenets/manageProfile.jsx";
+import Profileinformation from "./componenets/profileinformation.jsx";
+import AccountPreferences from "./settingpage/accountPreferences.jsx";
+import EditProfilePicture from "./settingpage/editProfilePicture.jsx";
 
 
 
@@ -50,6 +53,9 @@ const App = () => {
             <Route path="/accounts" element={<AccountsPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/ManageProfile" element={<ManageProfile/>} />
+            <Route path="/profileinformation" element={<Profileinformation/>} />
+            <Route path="AccountPreferences" element={<AccountPreferences/>} />
+            <Route path="EditProfilePicture" element={<EditProfilePicture/>} />
           </Route>
 
           <Route path="/sign-up" element={<SignupPage />} />

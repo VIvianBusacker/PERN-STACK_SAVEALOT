@@ -65,7 +65,7 @@ const ManageProfile = () => {
         <div className="relative mt-1">
           <div>
             <ComboboxInput
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
               displayValue={(country) => country?.country}
               placeholder="Type to search..."
               onChange={(e) => setQuery(e.target.value)} // Update query state as user types
@@ -75,7 +75,7 @@ const ManageProfile = () => {
             </ComboboxButton>
           </div>
           <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0" afterLeave={() => setQuery("")}>
-            <ComboboxOptions className="absolute mt-1 max-h-60 w-full overflow-auto rounded-lg bg-white shadow-md ring-1 ring-gray-200 focus:outline-none sm:text-sm">
+            <ComboboxOptions className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white shadow-md ring-1 ring-gray-200 focus:outline-none sm:text-sm">
               {filteredCountries.length === 0 && query !== "" ? (
                 <div className="relative cursor-default select-none px-4 py-2 text-gray-700">No results found for "{query}".</div>
               ) : (
@@ -108,19 +108,18 @@ const ManageProfile = () => {
 
   return (
     <div className="flex flex-col items-center w-full">
-      <div className="w-full max-w-2xl px-6 py-6 mt-8 shadow-sm bg-white rounded-lg">
-        <div className="pb-6 border-b-2 border-gray-200">
-          <Title title="Profile Management" />
+      <div className="w-full max-w-3xl px-6 py-6 mt-8 shadow-md bg-white rounded-lg">
+        <div className="pb-6 border-b border-gray-300">
+          <Title title="Profile Management" className="text-xl font-semibold text-gray-900" />
         </div>
         <div className="pt-6">
-          <p className="text-xl font-semibold text-gray-900">Profile Information</p>
+          <p className="text-lg font-semibold text-gray-900">Profile Information</p>
           <div className="flex items-center gap-4 my-6">
-            <div className="flex items-center justify-center w-14 h-14 text-white rounded-full bg-blue-500">
+            <div className="flex items-center justify-center w-14 h-14 text-white rounded-full bg-blue-600">
               <p className="text-3xl font-bold">{user?.firstname?.charAt(0)}</p>
             </div>
-            <div className="flex items-center space-x-2">
-              <p className="text-2xl font-semibold text-gray-900">{user?.firstname}</p>
-              <p className="text-2xl font-semibold text-gray-900">{user?.lastname}</p>
+            <div className="flex flex-col">
+              <p className="text-lg font-semibold text-gray-900">{user?.firstname} {user?.lastname}</p>
             </div>
           </div>
           <form onSubmit={handleSubmit(submitHandler)} className="space-y-5">
@@ -131,19 +130,19 @@ const ManageProfile = () => {
                 placeholder="John"
                 register={register("firstname", { required: "First Name is required!" })}
                 error={errors.firstname ? errors.firstname.message : ""}
-                className="border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                className="border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
               />
-            </div>
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                </div>
+                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <InputField
                 name="lastname"
                 label="Last Name"
                 placeholder="Doe"
                 register={register("lastname", { required: "Last Name is required!" })}
                 error={errors.lastname ? errors.lastname.message : ""}
-                className="border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                className="border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
               />
-            </div>
+              </div>
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <InputField
                 type="email"
@@ -153,10 +152,10 @@ const ManageProfile = () => {
                 placeholder="john@example.com"
                 register={register("email", { required: "Email Address is required!" })}
                 error={errors.email ? errors.email.message : ""}
-                className="border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
-            </div>
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              </div>
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <InputField
                 type="tel"
                 name="contact"
@@ -164,9 +163,9 @@ const ManageProfile = () => {
                 placeholder="8726762783"
                 register={register("contact", { required: "Phone Number is required!" })}
                 error={errors.contact ? errors.contact.message : ""}
-                className="border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                className="border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
               />
-            </div>
+              </div>
             <h2 className="text-lg font-medium text-gray-900">Location</h2>
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <div className="w-full">
@@ -175,22 +174,22 @@ const ManageProfile = () => {
               </div>
               <div className="w-full">
                 <span className="block mb-2 text-gray-600 font-medium">Currency</span>
-                <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                <select className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none">
                   <option>{selectedCountry?.currency || user?.country}</option>
                 </select>
               </div>
             </div>
-            <div className="flex items-center gap-6 justify-end pt-8 border-t border-gray-200">
+            <div className="flex items-center gap-6 justify-end pt-8 border-t border-gray-300">
               <Button
                 type="reset"
                 label="Reset"
-                className="px-6 py-2 bg-gray-100 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-200 transition duration-150"
+                className="px-6 py-2 bg-gray-100 text-gray-700 border border-gray-300 rounded-md hover:bg-gray-200 transition duration-150"
               />
               <Button
                 loading={loading}
                 type="submit"
                 label="Save"
-                className="px-8 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-400 transition duration-150"
+                className="px-8 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500 transition duration-150"
               />
             </div>
           </form>
