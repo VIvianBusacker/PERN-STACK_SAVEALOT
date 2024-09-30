@@ -1,6 +1,6 @@
 // Import the necessary Firebase modules from the new SDK
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth,GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { getStorage } from 'firebase/storage';
 import { getFirestore } from "firebase/firestore"; // Import Firestore
 import { getAnalytics } from "firebase/analytics";
@@ -24,6 +24,17 @@ const auth = getAuth(app);
 const storage = getStorage(app);
 const firestore = getFirestore(app); // Initialize Firestore
 const analytics = getAnalytics(app);
+const googleProvider = new GoogleAuthProvider();
 
 // Export the initialized services to be used in other parts of your app
 export { app, auth, storage, firestore, analytics };
+
+// Sign-in function
+export const signInWithGoogle = () => {
+  return signInWithPopup(auth, googleProvider);
+};
+
+// Sign-out function
+export const logout = () => {
+  return signOut(auth);
+};

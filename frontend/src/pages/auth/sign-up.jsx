@@ -27,7 +27,7 @@ const RegisterSchema = z.object({
     .email({ message: "Invalid email address" }),
   firstName: z
     .string({ required_error: "Name is required" })
-    .min(3, "Name is required"),
+    .min(3, "Name must be at least 3 characters"),
   password: z
     .string({ required_error: "Password is required" })
     .min(8, "Password must be at least 8 characters"),
@@ -45,9 +45,6 @@ export const SignupPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-
-
-
   // Track focused and filled status for input fields
   const [focusedField, setFocusedField] = useState({
     name: false,
@@ -62,12 +59,20 @@ export const SignupPage = () => {
     try {
       setLoading(true);
       const { data: res } = await api.post("/auth/sign-up", data);
-
+  
       if (res?.user) {
         toast.success(res?.message);
-
+  
+        // Store user info in localStorage
+        const userInfo = { ...res.user, token: res.token };
+        localStorage.setItem("user", JSON.stringify(userInfo));
+  
+        // Store user credentials in your global store
+        setCredentails(userInfo); // Ensure `setCredentails` updates the store
+  
+        // Navigate to home page
         setTimeout(() => {
-          navigate("/sign-in");
+          navigate("/");
         }, 1500);
       }
     } catch (error) {
@@ -77,26 +82,28 @@ export const SignupPage = () => {
       setLoading(false);
     }
   };
+  
 
   useEffect(() => {
-    user && navigate("/");
-  }, [user]);
+    if (user) {
+      navigate("/"); // Navigate to home if user exists
+    }
+  }, [user, navigate]);
 
-
-
+  // Helper function to style input based on its state
   const getInputStyles = (field) => {
     const isFieldFocusedOrFilled = focusedField[field] || register(field).value;
     return `w-full px-3 py-2 text-sm border rounded-md ${
       isFieldFocusedOrFilled
-        ? "border-transparent"
-        : "border-gray-300"
+        ? "border-transparent" // No border when focused or filled
+        : "border-gray-300"    // Gray border when not focused or empty
     } ${
       errors[field] ? "border-red-500" : ""
     } dark:border-gray-700 dark:bg-transparent dark:placeholder-gray-600 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400`;
   };
 
   return (
-    <div className="flex flex-col items-center justify-center height:100vh">
+    <div className="flex flex-col items-center justify-center h-screen">
       {/* Logo centered at the top */}
       <img
         src={logo}
@@ -120,37 +127,47 @@ export const SignupPage = () => {
 
                 {/* Full Name Field */}
                 <div className="relative">
-                  <label className={`absolute left-3 transition-all duration-300 transform bg-white px-1 text-gray-500 ${
-                    focusedField.name || register("firstName").value
-                      ? "text-xs top-[-10px] left-1"
-                      : "top-[50%] -translate-y-1/2 text-sm"
-                  } dark:text-gray-400`}>
+                  <label
+                    className={`absolute left-3 transition-all duration-300 transform bg-white px-1 text-gray-500 ${
+                      focusedField.name || register("firstName").value
+                        ? "text-xs top-[-10px] left-1"
+                        : "top-[50%] -translate-y-1/2 text-sm"
+                    } dark:text-gray-400`}
+                  >
                     Full Name
                   </label>
                   <input
                     disabled={loading}
                     id="firstName"
                     type="text"
-                    className={getInputStyles("name")}
+                    className={getInputStyles("firstName")}
                     {...register("firstName")}
-                    onFocus={() => setFocusedField((prev) => ({ ...prev, name: true }))}
-                    onBlur={(e) => setFocusedField((prev) => ({
-                      ...prev,
-                      name: e.target.value !== "",
-                    }))}
+                    onFocus={() =>
+                      setFocusedField((prev) => ({ ...prev, name: true }))
+                    }
+                    onBlur={(e) =>
+                      setFocusedField((prev) => ({
+                        ...prev,
+                        name: e.target.value !== "",
+                      }))
+                    }
                   />
                   {errors.firstName && (
-                    <p className="text-xs text-red-500">{errors.firstName.message}</p>
+                    <p className="text-xs text-red-500">
+                      {errors.firstName.message}
+                    </p>
                   )}
                 </div>
 
                 {/* Email Field */}
                 <div className="relative">
-                  <label className={`absolute left-3 transition-all duration-300 transform bg-white px-1 text-gray-500 ${
-                    focusedField.email || register("email").value
-                      ? "text-xs top-[-10px] left-1"
-                      : "top-[50%] -translate-y-1/2 text-sm"
-                  } dark:text-gray-400`}>
+                  <label
+                    className={`absolute left-3 transition-all duration-300 transform bg-white px-1 text-gray-500 ${
+                      focusedField.email || register("email").value
+                        ? "text-xs top-[-10px] left-1"
+                        : "top-[50%] -translate-y-1/2 text-sm"
+                    } dark:text-gray-400`}
+                  >
                     Email Address
                   </label>
                   <input
@@ -159,24 +176,32 @@ export const SignupPage = () => {
                     type="email"
                     className={getInputStyles("email")}
                     {...register("email")}
-                    onFocus={() => setFocusedField((prev) => ({ ...prev, email: true }))}
-                    onBlur={(e) => setFocusedField((prev) => ({
-                      ...prev,
-                      email: e.target.value !== "",
-                    }))}
+                    onFocus={() =>
+                      setFocusedField((prev) => ({ ...prev, email: true }))
+                    }
+                    onBlur={(e) =>
+                      setFocusedField((prev) => ({
+                        ...prev,
+                        email: e.target.value !== "",
+                      }))
+                    }
                   />
                   {errors.email && (
-                    <p className="text-xs text-red-500">{errors.email.message}</p>
+                    <p className="text-xs text-red-500">
+                      {errors.email.message}
+                    </p>
                   )}
                 </div>
 
                 {/* Password Field with Show/Hide functionality */}
                 <div className="relative">
-                  <label className={`absolute left-3 transition-all duration-300 transform bg-white px-1 text-gray-500 ${
-                    focusedField.password || register("password").value
-                      ? "text-xs top-[-10px] left-1"
-                      : "top-[50%] -translate-y-1/2 text-sm"
-                  } dark:text-gray-100`}>
+                  <label
+                    className={`absolute left-3 transition-all duration-300 transform bg-white px-1 text-gray-500 ${
+                      focusedField.password || register("password").value
+                        ? "text-xs top-[-10px] left-1"
+                        : "top-[50%] -translate-y-1/2 text-sm"
+                    } dark:text-gray-100`}
+                  >
                     Password
                   </label>
                   <input
@@ -185,22 +210,26 @@ export const SignupPage = () => {
                     type={showPassword ? "text" : "password"}
                     className={getInputStyles("password")}
                     {...register("password")}
-                    onFocus={() => setFocusedField((prev) => ({
-                      ...prev,
-                      password: true,
-                    }))}
-                    onBlur={(e) => setFocusedField((prev) => ({
-                      ...prev,
-                      password: e.target.value !== "",
-                    }))}
+                    onFocus={() =>
+                      setFocusedField((prev) => ({
+                        ...prev,
+                        password: true,
+                      }))
+                    }
+                    onBlur={(e) =>
+                      setFocusedField((prev) => ({
+                        ...prev,
+                        password: e.target.value !== "",
+                      }))
+                    }
                   />
-                  {/* <button
+                  <button
                     type="button"
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? <BiHide /> : <BiShow />}
-                  </button> */}
+                  </button>
                   {errors.password && (
                     <p className="text-xs text-red-500">
                       {errors.password.message}
@@ -223,7 +252,9 @@ export const SignupPage = () => {
           </CardContent>
         </div>
         <CardFooter className="justify-center gap-2">
-          <p className="text-sm text-gray-600 dark:text-gray-400">Already have an account?</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Already have an account?
+          </p>
           <Link
             to="/sign-in"
             className="text-sm font-semibold text-violet-600 dark:text-violet-400 hover:underline"

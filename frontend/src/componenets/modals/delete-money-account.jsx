@@ -69,7 +69,7 @@ const DeleteMoney = ({ isOpen, setIsOpen, id, refetch }) => {
             <Button
               loading={loading}
               type='submit'
-              label={`Delete $${watch("amount") ? formatCurrency(watch("amount")) : ""}`}
+              label={`Delete ${watch("amount") ? formatCurrency(watch("amount")) : ""}`}
               className='bg-red-600 text-white w-full'
             />
           </div>

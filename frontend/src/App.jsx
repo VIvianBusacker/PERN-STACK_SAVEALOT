@@ -19,6 +19,7 @@ import { fetchCountries } from "./libs"; // Adjusted import path for fetchCountr
 import api from "./libs/apiCall"; // Ensure you have this import for your API calls
 import Signinandpassword from "./settingpage/signinandpassword.jsx";
 import Passwordchange from "./settingpage/passwordchange.jsx";
+
 const RootLayout = () => {
   const { user } = useStore((state) => state); // Fixed the state extraction syntax
 
@@ -120,7 +121,6 @@ const App = () => {
           <Route path="/sign-in" element={<SigninPage />} />
         </Routes>
       </div>
-
       <Toaster richColors position="top-center" />
     </main>
   );
