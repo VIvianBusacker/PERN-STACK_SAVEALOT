@@ -1,23 +1,14 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import useStore from "../store";
 
 const EditProfilePicture = ({ profileImage, onClose, onImageChange }) => {
   const [avatar, setAvatar] = useState(profileImage);
-  const [countriesData, setCountriesData] = useState([]); // Correct placement of useState
   const { user } = useStore((state) => state);
-  const handleAvatarChange = (newAvatar) => {
-    setAvatar(newAvatar); // Handle avatar selection logic
-  };
-
-  // Placeholder for getCountriesList function (you need to define this function)
-  const getCountriesList = () => {
-    // Fetch or generate the list of countries, then set it in state
-    // Example: setCountriesData(['USA', 'Canada', 'UK']);
-  };
+  const navigate = useNavigate(); // Use navigate to go to ChooseAvatar component
 
   useEffect(() => {
-    getCountriesList();
-    const savedImage = localStorage.getItem('profileImage');
+    const savedImage = localStorage.getItem("profileImage");
     if (savedImage) {
       setAvatar(savedImage); // Load the image from localStorage if it exists
     }
@@ -68,9 +59,9 @@ const EditProfilePicture = ({ profileImage, onClose, onImageChange }) => {
           {/* Choose Avatar Button */}
           <button
             className="px-4 py-2 text-sm font-semibold text-blue-500 border border-blue-500 rounded-lg hover:bg-blue-50"
-            onClick={() => handleAvatarChange('avatar-url')} // Replace with your avatar selection logic
+            onClick={() => navigate("/ChooseAvatar")} // Navigate to ChooseAvatar component
           >
-            choose avatar
+            Choose Avatar
           </button>
 
           {/* Upload Photo Button */}

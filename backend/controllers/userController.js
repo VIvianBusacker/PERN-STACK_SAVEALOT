@@ -33,7 +33,7 @@ export const getUser = async (req, res) => {
 export const updateUser = async (req, res) => {
   try {
     const { userId } = req.body.user;
-    const { firstname, lastname, country, currency, contact } = req.body;
+    const { email, firstname, lastname, country, currency, contact } = req.body;
 
     const userExist = await pool.query({
       text: `SELECT * FROM tbluser WHERE id = $1`,
@@ -49,8 +49,8 @@ export const updateUser = async (req, res) => {
     }
 
     const updatedUser = await pool.query({
-      text: `UPDATE tbluser SET firstname = $1, lastname = $2, country = $3, contact = $4, currency = $5, updatedat = CURRENT_TIMESTAMP WHERE id = $6 RETURNING *`,
-      values: [firstname, lastname, country, contact, currency, userId],
+      text: `UPDATE tbluser SET email = $1, firstname = $2, lastname = $3, country = $4, contact = $5, currency = $6, updatedat = CURRENT_TIMESTAMP WHERE id = $7 RETURNING *`,
+      values: [email, firstname, lastname, country, contact, currency, userId],
     });
 
     updatedUser.rows[0].password = undefined;

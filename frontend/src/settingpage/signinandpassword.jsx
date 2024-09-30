@@ -7,7 +7,7 @@ import useStore from "../store";
 import { Link } from "react-router-dom";
 import EditProfilePicture from "../settingpage/editProfilePicture";
 
-const AccountPreferences = () => {
+const Signinandpassword = () => {
   const { user, theme, setTheme } = useStore((state) => state);
   const [selectedCountry, setSelectedCountry] = useState({ country: user?.country, currency: user?.currency } || "");
   const [query, setQuery] = useState("");
@@ -85,34 +85,34 @@ const AccountPreferences = () => {
 
   // Profile Info component for displaying user profile information
   const Profileinformation = () => (
-    <Link to="/Profileinformation">
-      <SectionWrapper title="Profile Information" description="Name, phone number, and email address" />
+    <Link to="/passwordchange">
+      <SectionWrapper title="Password" />
     </Link>
   );
 
-  // Display Section for user display preferences
-  const Language = () => (
-    <Link to="/LanguageChange">
-      <SectionWrapper title="Language" />
-    </Link>
-  );
+//   // Display Section for user display preferences
+//   const Language = () => (
+//     <Link to="/LanguageChange">
+//       <SectionWrapper title="Language" />
+//     </Link>
+//   );
 
   // General preferences section with user settings
-  const GeneralPreferences = () => (
-    <div className="bg-white dark:bg-gray-900 shadow-md rounded-lg p-4 mb-6">
-      <p className="text-lg font-semibold dark:text-white">General Preferences</p>
-      <div className="mt-4">
-        <PreferenceItem title="Language" value="English" />
-        <PreferenceItem title="Theme" value={theme === "dark" ? "Dark" : "Light"} /> {/* Dynamically set the theme */}
-        <PreferenceItem title="Country" value={selectedCountry?.country || "Not Set"} /> {/* Dynamically set the country */}
-        <PreferenceItem title="Currency" value={selectedCountry?.currency || "Not Set"} /> {/* Dynamically set the currency */}
-        {/* <PreferenceItem title="Autoplay Videos" value="On" /> */}
-        {/* <PreferenceItem title="Sound Effects" value="On" /> */}
-        {/* <PreferenceItem title="Showing Profile Photos" value="Your Network" /> */}
-        {/* <PreferenceItem title="Preferred Feed View" value="Most Relevant Posts" /> */}
-      </div>
-    </div>
-  );
+//   const GeneralPreferences = () => (
+//     <div className="bg-white dark:bg-gray-900 shadow-md rounded-lg p-4 mb-6">
+//       <p className="text-lg font-semibold dark:text-white">General Preferences</p>
+//       <div className="mt-4">
+//         <PreferenceItem title="Language" value="English" />
+//         <PreferenceItem title="Theme" value={theme === "dark" ? "Dark" : "Light"} /> {/* Dynamically set the theme */}
+//         <PreferenceItem title="Country" value={selectedCountry?.country || "Not Set"} /> {/* Dynamically set the country */}
+//         <PreferenceItem title="Currency" value={selectedCountry?.currency || "Not Set"} /> {/* Dynamically set the currency */}
+//         {/* <PreferenceItem title="Autoplay Videos" value="On" /> */}
+//         {/* <PreferenceItem title="Sound Effects" value="On" /> */}
+//         {/* <PreferenceItem title="Showing Profile Photos" value="Your Network" /> */}
+//         {/* <PreferenceItem title="Preferred Feed View" value="Most Relevant Posts" /> */}
+//       </div>
+//     </div>
+//   );
 
   // Reusable component for displaying preference items
   const PreferenceItem = ({ title, value }) => (
@@ -141,11 +141,11 @@ const AccountPreferences = () => {
       {/* Main Content */}
       <div className="w-3/4 p-6">
         <Profileinformation />
-        <Language />
-        <GeneralPreferences />
+        {/* <Language /> */}
+        {/* <GeneralPreferences /> */}
       </div>
     </div>
   );
 };
 
-export default AccountPreferences;
+export default Signinandpassword;

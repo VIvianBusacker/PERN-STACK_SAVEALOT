@@ -12,7 +12,7 @@ const SettingsPage = () => {
   const [query, setQuery] = useState("");
   const [countriesData, setCountriesData] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const [profileImage, setProfileImage] = useState(null); // State for profile image
   // Function to handle form submission
   const submitHandler = async (data) => {
     try {
@@ -50,6 +50,13 @@ const SettingsPage = () => {
 
   useEffect(() => {
     getCountriesList();
+    const savedCountry = localStorage.getItem('selectedCountry');
+    if (savedCountry) {
+      setSelectedCountry(JSON.parse(savedCountry)); // Load saved country and currency from localStorage
+    }const savedImage = localStorage.getItem('profileImage');
+    if (savedImage) {
+      setProfileImage(savedImage); // Load the image from localStorage if it exists
+    }    
   }, []);
 
   // Sidebar component for settings navigation
@@ -58,9 +65,9 @@ const SettingsPage = () => {
       <h2 className="text-xl font-bold mb-6 text-gray-800 dark:text-white">Settings</h2>
       <ul className="space-y-6">
         <SidebarItem label="Account Preferences" to="/AccountPreferences" />
-        <SidebarItem label="Sign in & Security" to="/manageprofile" />
-        <SidebarItem label="Visibility" to="/manageprofile" />
-        <SidebarItem label="Data Privacy" to="/manageprofile" />
+        <SidebarItem label="Sign in & Security" to="/signinandpassword" />
+        <SidebarItem label="Appearance" to="/darklighttheme" />
+        <SidebarItem label="Finance Exchange" to="/countrycurrency" />
         <SidebarItem label="Advertising Data" to="/manageprofile" />
         <SidebarItem label="Notifications" to="/manageprofile" />
       </ul>
@@ -82,10 +89,10 @@ const SettingsPage = () => {
   );
   
 
-  // Display Section for user display preferences
-  const DisplaySection = () => (
-    <Link to="/manageprofile">
-    <SectionWrapper title="Display" />
+  // Display Section for user Language preferences
+  const Language = () => (
+    <Link to="/LanguageChange">
+    <SectionWrapper title="Language" />
     </Link>
   );
 
@@ -95,13 +102,17 @@ const SettingsPage = () => {
       <p className="text-lg font-semibold dark:text-white">General Preferences</p>
       <div className="mt-4">
         <PreferenceItem title="Language" value="English" />
-        <PreferenceItem title="Autoplay Videos" value="On" />
-        <PreferenceItem title="Sound Effects" value="On" />
-        <PreferenceItem title="Showing Profile Photos" value="Your Network" />
-        <PreferenceItem title="Preferred Feed View" value="Most Relevant Posts" />
+        <PreferenceItem title="Theme" value={theme === "dark" ? "Dark" : "Light"} /> {/* Dynamically set the theme */}
+        <PreferenceItem title="Country" value={selectedCountry?.country || "Not Set"} /> {/* Dynamically set the country */}
+        <PreferenceItem title="Currency" value={selectedCountry?.currency || "Not Set"} /> {/* Dynamically set the currency */}
+        {/* <PreferenceItem title="Sound Effects" value="On" /> */}
+        {/* <PreferenceItem title="Showing Profile Photos" value="Your Network" /> */}
+        {/* <PreferenceItem title="Preferred Feed View" value="Most Relevant Posts" /> */}
       </div>
     </div>
   );
+
+  
 
   // Reusable component for displaying preference items
   const PreferenceItem = ({ title, value }) => (
@@ -130,7 +141,7 @@ const SettingsPage = () => {
       {/* Main Content */}
       <div className="w-3/4 p-6">
         <Profileinformation />
-        <DisplaySection />
+        <Language />
         <GeneralPreferences />
       </div>
     </div>

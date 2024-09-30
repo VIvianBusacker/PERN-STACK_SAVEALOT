@@ -34,16 +34,16 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className='pt-20'>
+    // <div className='pt-20'>
       <form onSubmit={handleSubmit(submitPasswordHandler)}>
-        <div className=''>
-          <p className='text-xl font-bold text-black dark:text-white mb-1'>
+        {/* <div className=''> */}
+          {/* <p className='text-xl font-bold text-black dark:text-white mb-1'>
             Change Password
           </p>
           <span className='labelStyles'>
             This will be used to log into your account and complete high
             severity actions.
-          </span>
+          </span> */}
 
           <div className='mt-6'>
             <InputField
@@ -86,7 +86,7 @@ const ChangePassword = () => {
                 errors.confirmPassword ? errors.confirmPassword.message : ""
               }
             />
-          </div>
+          {/* </div> */}
         </div>
         <div className='flex justify-end gap-4'>
           <Button
@@ -102,7 +102,7 @@ const ChangePassword = () => {
           />
         </div>
       </form>
-    </div>
+    // </div>
   );
 };
 

@@ -308,9 +308,9 @@ const Navbar = () => {
 
 
 
-            <div className="mt-auto p-4">
+            {/* <div className="mt-auto p-4">
               <ThemeSwitch />
-            </div>
+            </div> */}
           </div>
           <div
             className="w-full h-full bg-black bg-opacity-50"
