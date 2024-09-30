@@ -4,6 +4,7 @@ import { GiCash } from "react-icons/gi";
 import { RiVisaLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 
+import { SiZelle, SiVenmo } from "react-icons/si";
 import { formatCurrency, maskAccountNumber } from "../libs";
 import Title from "./title";
 
@@ -26,6 +27,16 @@ const ICONS = {
   paypal: (
     <div className='w-12 h-12 bg-blue-700 text-white flex items-center justify-center rounded-full'>
       <FaPaypal size={26} />
+    </div>
+  ),
+  venmo: (
+    <div className='w-12 h-12 bg-blue-400 text-white flex items-center justify-center rounded-full'>
+      <SiVenmo size={26} />
+    </div>
+  ),
+  zelle: (
+    <div className='w-12 h-12 bg-purple-600 text-white flex items-center justify-center rounded-full'>
+      <SiZelle size={26} />
     </div>
   ),
 };

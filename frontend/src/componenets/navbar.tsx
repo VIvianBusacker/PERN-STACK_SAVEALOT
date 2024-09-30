@@ -171,6 +171,7 @@ const Navbar = () => {
                 alt="User"
                 className="w-14 h-14 rounded-full object-cover cursor-pointer"
               /> */}
+
           {profileImage ? (
           <img
             src={profileImage}

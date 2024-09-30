@@ -39,6 +39,7 @@ const Dashboard = () => {
   useEffect(() => {
     setIsLoading(true);
     fetchDashboardStats();
+    console.log(data);
   }, []);
 
   if (isLoading)

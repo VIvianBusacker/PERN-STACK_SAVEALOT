@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaBtc, FaPaypal } from "react-icons/fa";
 import { GiCash } from "react-icons/gi";
 import { MdAdd, MdVerifiedUser } from "react-icons/md";
 import { RiVisaLine } from "react-icons/ri";
 import { toast } from "sonner";
+import { SiZelle, SiVenmo } from "react-icons/si";
 
 import {
   AccountMenu,
@@ -16,6 +17,7 @@ import {
 import { formatCurrency, maskAccountNumber } from "../libs";
 import api from "../libs/apiCall";
 import useStore from "../store";
+import DeleteMoney from "../componenets/modals/delete-money-account"; // Import DeleteMoney component
 
 const ICONS = {
   crypto: (
@@ -38,6 +40,16 @@ const ICONS = {
       <FaPaypal size={26} />
     </div>
   ),
+  venmo: (
+    <div className='w-12 h-12 bg-blue-400 text-white flex items-center justify-center rounded-full'>
+      <SiVenmo size={26} />
+    </div>
+  ),
+  zelle: (
+    <div className='w-12 h-12 bg-purple-600 text-white flex items-center justify-center rounded-full'>
+      <SiZelle size={26} />
+    </div>
+  ),
 };
 
 const AccountsPage = () => {
@@ -46,7 +58,9 @@ const AccountsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenTopup, setIsOpenTopup] = useState(false);
   const [isOpenTransfer, setIsOpenTransfer] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // For delete modal
   const [selectedAccount, setSelectedAccount] = useState("");
+  const [selectedAccountId, setSelectedAccountId] = useState(null); // Store selected account ID for deletion
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -58,6 +72,11 @@ const AccountsPage = () => {
   const handleTransferMoney = (el) => {
     setSelectedAccount(el?.id);
     setIsOpenTransfer(true);
+  };
+
+  const handleDeleteMoney = (accountId) => {
+    setSelectedAccountId(accountId); // Set the account ID for deletion
+    setIsDeleteModalOpen(true); // Open the delete modal
   };
 
   const fetchAccounts = async () => {
@@ -128,6 +147,7 @@ const AccountsPage = () => {
                     <AccountMenu
                       addMoney={() => handleOpenAddMoney(acc)}
                       transferMoney={() => handleTransferMoney(acc)}
+                      deleteMoney={() => handleDeleteMoney(acc?.id)} // Pass account ID for deletion
                     />
                   </div>
                   <span className='text-gray-600 dark:text-gray-400 font-light leading-loose'>
@@ -173,12 +193,20 @@ const AccountsPage = () => {
         key={new Date().getTime() + 1}
       />
 
+      <DeleteMoney
+        isOpen={isDeleteModalOpen}
+        setIsOpen={setIsDeleteModalOpen}
+        id={selectedAccountId} // Pass the selected account ID for deletion
+        refetch={fetchAccounts} // Refresh accounts after deletion
+        key={new Date().getTime() + 2}
+      />
+
       <TransferMoney
         isOpen={isOpenTransfer}
         setIsOpen={setIsOpenTransfer}
         id={selectedAccount}
         refetch={fetchAccounts}
-        key={new Date().getTime() + 2}
+        key={new Date().getTime() + 3}
       />
     </>
   );

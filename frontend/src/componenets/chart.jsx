@@ -1,4 +1,5 @@
-import React from "react";
+import React from "react"; // Removed unnecessary imports
+
 import {
   CartesianGrid,
   Legend,
@@ -11,7 +12,13 @@ import {
 } from "recharts";
 import Title from "./title";
 
-export const Chart = ({ data }) => {
+export const Chart = ({ data = [] }) => {
+  // Optional: Render a fallback message if there's no data
+  if (data.length === 0) {
+    return <p>No data available to display.</p>;
+  }
+  console.log(data);
+
   return (
     <div className="flex-1 w-full">
       <Title title="Transaction Activity" />
