@@ -68,8 +68,8 @@ const SettingsPage = () => {
         <SidebarItem label="Sign in & Security" to="/signinandpassword" />
         <SidebarItem label="Appearance" to="/darklighttheme" />
         <SidebarItem label="Finance Exchange" to="/countrycurrency" />
-        <SidebarItem label="Advertising Data" to="/manageprofile" />
-        <SidebarItem label="Notifications" to="/manageprofile" />
+        {/* <SidebarItem label="Advertising Data" to="/manageprofile" />
+        <SidebarItem label="Notifications" to="/manageprofile" /> */}
       </ul>
     </div>
   );

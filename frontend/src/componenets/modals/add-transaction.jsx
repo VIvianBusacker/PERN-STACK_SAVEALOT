@@ -161,7 +161,7 @@ const AddTransaction = ({ isOpen, setIsOpen, refetch }) => {
                     label={`Confirm ${
                       watch("amount") ? formatCurrency(watch("amount")) : ""
                     }`}
-                    className='bg-violet-700 text-white w-full'
+                    className='bg-blue-700 text-white w-full'
                   />
                 </div>
               </>

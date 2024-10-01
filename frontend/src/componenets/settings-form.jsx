@@ -12,7 +12,6 @@ import { BiCheck } from "react-icons/bi";
 import { BsChevronExpand } from "react-icons/bs";
 import { toast } from "sonner";
 
-import { fetchCountries } from "../libs";
 import api from "../libs/apiCall";
 import useStore from "../store";
 import Button from "./button";
@@ -117,7 +116,7 @@ const SettingsForm = () => {
                       className={({ active }) =>
                         `relative cursor-default select-none py-2 pl-10 pr-4 ${
                           active
-                            ? "bg-violet-600/20 text-white"
+                            ? "bg-blue-600/20 text-white"
                             : "text-gray-900"
                         }`
                       }
@@ -271,7 +270,7 @@ const SettingsForm = () => {
           loading={loading}
           type='submit'
           label='Save'
-          className='px-8 bg-violet-800 text-white '
+          className='px-8 bg-blue-800 text-white '
         />
       </div>
     </form>

@@ -239,7 +239,7 @@ export const SignupPage = () => {
               </div>
               <Button
                 type="submit"
-                className="w-full bg-violet-800 dark:bg-violet-700 hover:bg-violet-900"
+                className="w-full bg-blue-800 dark:bg-blue-700 hover:bg-blue-900"
                 disabled={loading}
               >
                 {loading ? (
@@ -257,7 +257,7 @@ export const SignupPage = () => {
           </p>
           <Link
             to="/sign-in"
-            className="text-sm font-semibold text-violet-600 dark:text-violet-400 hover:underline"
+            className="text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline"
           >
             Sign in
           </Link>

@@ -262,7 +262,7 @@ const Navbar = () => {
               >
                 {/* :)!!!!!!!!
                 <div className="w-full">
-                <p className="text-violet-700">{user?.firstname}</p>
+                <p className="text-blue-700">{user?.firstname}</p>
                 <span className="text-xs overflow-ellipsis">
                   {user?.country}
                 </span>

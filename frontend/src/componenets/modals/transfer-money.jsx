@@ -187,7 +187,7 @@ const TransferMoney = ({ isOpen, setIsOpen, refetch }) => {
                     label={`Transfer ${
                       watch("amount") ? formatCurrency(watch("amount")) : ""
                     }`}
-                    className='bg-violet-700 text-white w-full'
+                    className='bg-blue-700 text-white w-full'
                   />
                 </div>
               </>

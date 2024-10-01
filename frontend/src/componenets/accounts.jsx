@@ -35,7 +35,7 @@ const ICONS = {
     </div>
   ),
   zelle: (
-    <div className='w-12 h-12 bg-purple-600 text-white flex items-center justify-center rounded-full'>
+    <div className='w-12 h-12 bg-blue-500 text-white flex items-center justify-center rounded-full'>
       <SiZelle size={26} />
     </div>
   ),
@@ -47,7 +47,7 @@ const Accounts = ({ data }) => {
       <Title title='Accounts' />
       <Link
         to='/accounts'
-        className='text-sm text-gray-600 dark:text-gray-500 hover"text-violet-600 hover:underline'
+        className='text-sm text-gray-600 dark:text-gray-500 hover"text-blue-400 hover:underline'
       >
         View all your accounts
       </Link>
@@ -74,7 +74,7 @@ const Accounts = ({ data }) => {
               <p className='text-lg 2xl:text-xl text-black dark:text-gray-400 font-medium'>
                 {formatCurrency(item?.account_balance)}
               </p>
-              <span className='text-xs 2xl:text-sm text-gray-600 dark:text-violet-700'>
+              <span className='text-xs 2xl:text-sm text-gray-600 dark:text-blue-600'>
                 Account Balance
               </span>
             </div>

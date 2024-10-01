@@ -9,7 +9,7 @@ import {
 } from "recharts";
 import Title from "./title";
 
-const COLORS = ["#0088FE", "#FFBB28", "#FF8042", "#00C49F"];
+const COLORS = ["#8884d8", "#82ca9d", "#00c49f", "#ff42c1 "];
 
 const DoughnutChart = ({ dt }) => {
   const data = [
@@ -18,7 +18,7 @@ const DoughnutChart = ({ dt }) => {
   ];
 
   return (
-    <div className='w-full md:w-1/3 flex flex-col items-center bg-gray-50 dark:bg-transparent'>
+    <div className='w-full md:w-1/3 flex flex-col items-center bg-transparent dark:bg-transparent'>
       <Title title='Summary' />
       <ResponsiveContainer width={"100%"} height={500}>
         <PieChart width={500} height={400}>

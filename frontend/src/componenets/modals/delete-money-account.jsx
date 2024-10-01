@@ -51,14 +51,14 @@ const DeleteMoney = ({ isOpen, setIsOpen, id, refetch }) => {
           as='h3'
           className='text-lg font-medium leading-6 text-gray-900 dark:text-gray-300 mb-4 uppercase'
         >
-          Delete Money from Account
+          Withdraw Money from Account
         </DialogTitle>
         <form onSubmit={handleSubmit(submitHandler)} className='space-y-6'>
           <InputField
             type='number'
             name='amount'
             label='Amount'
-            placeholder='Enter amount to delete'
+            placeholder='Enter amount to withdraw'
             register={register("amount", {
               required: "Amount is required!",
             })}
