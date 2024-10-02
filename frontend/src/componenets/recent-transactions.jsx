@@ -13,7 +13,7 @@ const RecentTransactions = ({ data }) => {
       <div className="flex items-center justify-between">
         <Title title="Recent Transactions" />
         <Link
-            to="/transactions" className="text-sm text-gray-600 dark:text-gray-500 hover:text-blue-600 hover:underline mr-5">
+            to="/transactions" className="text-sm text-gray-600 dark:text-gray-500 hover:text-violet-600 hover:underline mr-5">
   View All
 </Link>
       </div>
@@ -34,7 +34,7 @@ const RecentTransactions = ({ data }) => {
             {data?.map((item, index) => (
               <tr
                 key={index}
-                className='text-sm text-gray-600 dark:text-gray-500 hover"text-blue-600 hover:underline mr-5'>
+                className='text-sm text-gray-600 dark:text-gray-500 hover"text-violet-600 hover:underline mr-5'>
                 <td className="py-4">
                   {new Date(item.createdat).toLocaleDateString()}
                 </td>

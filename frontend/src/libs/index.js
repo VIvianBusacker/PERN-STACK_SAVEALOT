@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
 import { Fragment, useState, useEffect } from "react";
 import { toast } from "sonner";
 import useStore from "../settingpage/index"; // Zustand global store
@@ -36,7 +35,7 @@ export const maskAccountNumber = (accountNumber) => {
 
 //////////////////////////////////////////////////////////
 // Format currency function with conversion based on selected country's currency and exchange rate
-export const formatCurrency = (value, code) => {
+export const formatCurrency = (value, transactionCurrency, code) => {
   const selectedCountry = JSON.parse(localStorage.getItem("selectedCountry")) || {};
 
   if (isNaN(value)) {
@@ -45,15 +44,23 @@ export const formatCurrency = (value, code) => {
 
   const numberValue = typeof value === "string" ? parseFloat(value) : value;
 
-  // If there's an exchange rate, convert the value before formatting
-  const convertedValue = selectedCountry.exchangeRate ? numberValue * selectedCountry.exchangeRate : numberValue;
+  // Use the transaction's currency if provided, otherwise fallback to selected country or default code
+  const currencyToUse = transactionCurrency || code || selectedCountry.currency || "USD";
 
+  // Fetch the exchange rate if there's a transaction currency and an exchange rate exists
+  const exchangeRate = selectedCountry.exchangeRate ? selectedCountry.exchangeRate : 1;
+
+  // Convert the value based on exchange rate
+  const convertedValue = numberValue * exchangeRate;
+
+  // Return the formatted currency, keeping the absolute value to avoid negative signs where not needed
   return new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: code || selectedCountry.currency || "USD",
+    currency: currencyToUse,
     minimumFractionDigits: 2,
   }).format(Math.abs(convertedValue));
 };
+
 
 
 // Get date function
@@ -120,6 +127,25 @@ export const fetchExchangeRate = async (currency) => {
     return null;
   }
 };
+
+export function getMonthName(index) {
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  return months[index];
+}
+
 
 // CountryCurrency Component
 export const CountryCurrency = () => {

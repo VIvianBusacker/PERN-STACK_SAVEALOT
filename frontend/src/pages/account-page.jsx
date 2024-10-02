@@ -111,7 +111,7 @@ const AccountsPage = () => {
           <div className='flex items-center gap-4'>
             <button
               onClick={() => setIsOpen(true)}
-              className='py-1.5 px-2 rounded bg-black dark:bg-blue-600 text-white dark:text-white flex items-center justify-center gap-2 border border-gray-500 '
+              className='py-1.5 px-2 rounded bg-black dark:bg-violet-600 text-white dark:text-white flex items-center justify-center gap-2 border border-gray-500 '
             >
               <MdAdd size={22} />
               <span className=''>Add</span>
@@ -166,7 +166,7 @@ const AccountsPage = () => {
                     </p>
                     <button
                       onClick={() => handleOpenAddMoney(acc)}
-                      className='text-sm outline-none text-blue-600 hover:underline'
+                      className='text-sm outline-none text-violet-600 hover:underline'
                     >
                       Add Money
                     </button>

@@ -54,7 +54,7 @@ const ViewTransaction = ({ data, isOpen, setIsOpen }) => {
           </p>
           <button
             type='button'
-            className='rounded-md outline-none bg-blue-800 px-4 py-2 text-sm font-medium text-white'
+            className='rounded-md outline-none bg-violet-800 px-4 py-2 text-sm font-medium text-white'
             onClick={closeModal}
           >
             Got it, thanks!

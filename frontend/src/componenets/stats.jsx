@@ -2,7 +2,7 @@ import React from "react";
 import { BsCashCoin, BsCurrencyDollar } from "react-icons/bs";
 import { SiCashapp } from "react-icons/si";
 
-import { formatCurrency } from "../libs";
+import { formatCurrency } from "../libs"; // Ensure the correct path is used for the formatCurrency function
 import { Card } from "./ui/card";
 
 const ICON_STYLES = [
@@ -17,7 +17,6 @@ const Stats = ({ dt }) => {
       label: "Total Balance",
       amount: dt?.balance,
       increase: 10.9,
-
       icon: <BsCurrencyDollar size={26} />,
     },
     {
@@ -33,6 +32,7 @@ const Stats = ({ dt }) => {
       increase: -10.9,
     },
   ];
+
   const ItemCard = ({ item, index }) => {
     return (
       <Card className="flex items-center justify-between w-full h-48 gap-5 px-4 py-12 shadow-lg 2xl:min-w-96 2xl:px-8 dark:border-slate-800">
@@ -48,7 +48,7 @@ const Stats = ({ dt }) => {
               {item.label}
             </span>
             <p className="text-2xl font-medium text-black 2xl:text-3xl dark:text-gray-400">
-              {formatCurrency(item?.amount || 0.0)}
+              {formatCurrency(item?.amount || 0.0)} {/* Formatting the amount */}
             </p>
             <span className="text-xs text-gray-600 md:text-sm 2xl:text-base dark:text-gray-500">
               Overall {item.label}

@@ -61,6 +61,8 @@ const AccountPreferences = () => {
     }     
   }, []);
 
+
+  
   // Sidebar component for settings navigation
   const Sidebar = () => (
     <div className="w-1/4 bg-gray-100 dark:bg-gray-800 p-6">

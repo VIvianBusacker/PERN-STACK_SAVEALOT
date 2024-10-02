@@ -50,7 +50,7 @@ export default function submitHandler({ addMoney, transferMoney, deleteMoney }) 
                     className="group flex gap-2 w-full items-center rounded-md px-2 py-2 text-sm text-gray-700 dark:text-gray-500"
                   >
                     <FaMoneyCheckDollar />
-                    Wtihdraw
+                    Delete
                   </button>
                 )}
               </MenuItem>

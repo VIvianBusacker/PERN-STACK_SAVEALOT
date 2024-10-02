@@ -100,7 +100,7 @@ const Transactions = () => {
 
             <button
               onClick={() => setIsOpen(true)}
-              className='py-1.5 px-2 rounded text-white bg-black dark:bg-blue-500 flex items-center justify-center gap-2 border border-gray-500'
+              className='py-1.5 px-2 rounded text-white bg-black dark:bg-violet-800 flex items-center justify-center gap-2 border border-gray-500'
             >
               <MdAdd size={22} />
               <span>Pay</span>
@@ -188,7 +188,7 @@ const Transactions = () => {
                       <td className='py-4 px-2'>
                         <button
                           onClick={() => handleViewTransaction(item)}
-                          className='outline-none text-blue-500 hover:underline'
+                          className='outline-none text-violet-600 hover:underline'
                         >
                           View
                         </button>

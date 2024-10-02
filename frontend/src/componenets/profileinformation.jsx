@@ -1,13 +1,4 @@
-import {
-  Combobox,
-  ComboboxButton,
-  ComboboxInput,
-  ComboboxOption,
-  ComboboxOptions,
-  Transition,
-} from "@headlessui/react";
-
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 import { BsChevronRight } from "react-icons/bs";
 import { toast } from "sonner";
 import { fetchCountries } from "../libs";
@@ -17,98 +8,51 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Button from "../componenets/button";
 import InputField from "../componenets/textfield";
-import { BsImage } from "react-icons/bs"; // Add this import for the picture icon
 
 import EditProfilePicture from "../settingpage/editProfilePicture";
 
-import { BiCheck } from "react-icons/bi";
-import { BsChevronExpand } from "react-icons/bs";
-
-
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    onImageChange(event); // Pass the image file to the parent
-    setSelectedImage(URL.createObjectURL(file)); // Preview the uploaded image
-  };
 
 const Profileinformation = () => {
   const { user, theme, setTheme } = useStore((state) => state);
+  const [selectedCountry, setSelectedCountry] = useState({ country: user?.country, currency: user?.currency });
   const [countriesData, setCountriesData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);  // State to control modal visibility
   const [profileImage, setProfileImage] = useState(null); // State for profile image
 
-  const [query, setQuery] = useState("");
-
-  const [isHovering, setIsHovering] = useState(false); // State to track hover effect
-
-  
-  const [selectedImage, setSelectedImage] = useState(profileImage);
-
    // Handle image upload and save to localStorage
-  // Function to handle image upload to backend
-const handleImageChange = async (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    const formData = new FormData();
-    formData.append('profileImage', file); // Append the image file to FormData
-
-    try {
-      // Send a POST request to upload the image to the backend
-      const response = await api.post('/upload/profile-image', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      if (response.data?.imageUrl) {
-        setProfileImage(response.data.imageUrl); // Set the uploaded image URL in state
-        localStorage.setItem('profileImage', response.data.imageUrl); // Optionally store the image URL in localStorage
-        toast.success("Profile image uploaded successfully!");
-      }
-    } catch (error) {
-      console.error("Image upload failed:", error);
-      toast.error("Failed to upload profile image.");
+   const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const imageData = reader.result; // Base64 image data
+        setProfileImage(imageData); // Update state with the image
+        localStorage.setItem('profileImage', imageData); // Store the image in localStorage
+      };
+      reader.readAsDataURL(file);
     }
-  }
-};
+  };
 
 
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: { ...user },
   });
-  
-  const [selectedCountry, setSelectedCountry] = useState(
-    { country: user?.country, currency: user?.currency } || ""
-  );
 
   const submitHandler = async (data) => {
     try {
       setLoading(true);
-      // Include the email in the newData object
       const newData = {
-        ...data, // This already contains the email from the form
+        ...data,
         country: selectedCountry.country,
         currency: selectedCountry.currency,
       };
-  
-      // Send the updated user data to the backend
       const { data: res } = await api.put(`/user/${user?.id}`, newData);
-  
       if (res?.user) {
-        // Update the local user state and store the updated user in localStorage
         const newUser = { ...res.user, token: user.token };
         localStorage.setItem("user", JSON.stringify(newUser));
-  
-        // Update the global user state
-        useStore.setState({ user: newUser });
-  
         toast.success(res?.message);
       }
     } catch (error) {
@@ -118,8 +62,8 @@ const handleImageChange = async (e) => {
       setLoading(false);
     }
   };
-  
-   const toggleTheme = (val) => {
+
+  const toggleTheme = (val) => {
     setTheme(val);
     localStorage.setItem("theme", val);
   };
@@ -138,35 +82,19 @@ const handleImageChange = async (e) => {
     if (savedImage) {
       setProfileImage(savedImage); // Load the image from localStorage if it exists
     }   
+  }, []);
+  
 
-    const fetchProfileImage = async () => {
-      try {
-        // Fetch the user's profile image from the backend
-        const response = await api.get(`/user/${user?.id}/profile-image`);
-        if (response.data?.imageUrl) {
-          setProfileImage(response.data.imageUrl); // Set the image URL in state
-          localStorage.setItem('profileImage', response.data.imageUrl); // Optionally store in localStorage
-        }
-      } catch (error) {
-        console.error("Failed to load profile image:", error);
-      }
-    };
-  
-    fetchProfileImage(); // Load image from backend when the component mounts
-  
-  }, [user?.id]);
-  
-  // Sidebar component for settings navigation
   const Sidebar = () => (
     <div className="w-1/4 bg-gray-100 dark:bg-gray-800 p-6">
-      <h2 className="text-xl font-bold mb-6 text-gray-800 dark:text-white">Settings</h2>
+      <h2 className="text-xl font-bold mb-6 text-gray-800 dark:text-white">Profile Information</h2>
       <ul className="space-y-6">
-        <SidebarItem label="Account Preferences" to="/AccountPreferences" />
+      <SidebarItem label="Account Preferences" to="/AccountPreferences" />
         <SidebarItem label="Sign in & Security" to="/signinandpassword" />
         <SidebarItem label="Appearance" to="/darklighttheme" />
         <SidebarItem label="Finance Exchange" to="/countrycurrency" />
-        <SidebarItem label="Advertising Data" to="/manageprofile" />
-        <SidebarItem label="Notifications" to="/manageprofile" />
+        {/* <SidebarItem label="Advertising Data" to="/manageprofile" />
+        <SidebarItem label="Notifications" to="/manageprofile" /> */}
       </ul>
     </div>
   );
@@ -178,122 +106,41 @@ const handleImageChange = async (e) => {
   );
 
   const ProfileInfo = () => (
-    <div className="bg-white dark:bg-gray-900 shadow-md rounded-lg p-6 mb-6">
-      <p className="text-xl font-bold dark:text-white">Profile Information</p>
+    <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 mb-6 transition-all duration-300 ease-in-out">
+      <p className="text-2xl font-bold dark:text-white text-gray-900 mb-4">Profile Information</p>
 
-      <div className="flex items-center space-x-4 mt-4">
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    
-    
-      
-      {/* Profile Information Section */}
-
-        <div className="py-13 px-3">
-          <div className="flex items-center gap-4 my-8">
-
-
-          <div className="relative w-16 h-16 cursor-pointer"
-      onMouseEnter={() => setIsHovering(true)} // Show hover effect on mouse enter
-      onMouseLeave={() => setIsHovering(false)} // Hide hover effect on mouse leave
-      onClick={() => setIsModalOpen(true)}  // Open modal when clicked
-    >
-            {/* Profile Image */}
-            <div
-              className="relative w-16 h-16 cursor-pointer"
-              onClick={() => setIsModalOpen(true)}  // Open modal when clicked
-            >
-              {profileImage ? (
-       <img
-       src={selectedImage || profileImage}
-          alt="Profile"
-          className="w-full h-full rounded-full object-cover"
-        /> 
-      ) : (
-        <div className="flex items-center justify-center w-full h-full text-white bg-blue-500 rounded-full">
-           <input type="file" accept="image/*" onChange={handleImageUpload} />
-          <p className="text-2xl font-bold">{user?.firstname?.charAt(0)}</p> {/* Placeholder for user initial */}
+      <div className="flex items-center space-x-6 mt-6">
+        <div className="relative w-20 h-20 cursor-pointer group" onClick={() => setIsModalOpen(true)}>
+          {profileImage ? (
+            <img
+              src={profileImage}
+              alt="Profile"
+              className="w-full h-full rounded-full object-cover shadow-lg transform group-hover:scale-105 transition-transform duration-300"
+            />
+          ) : (
+            <div className="w-24 h-24 rounded-full bg-gray-300">
+              <div className="flex items-center justify-center w-full h-full text-white bg-blue-500 rounded-full">
+                <p className="text-2xl font-bold">S</p>  {/* Placeholder for user initial */}
+              </div>
+            </div>
+          )}
         </div>
-      )}
-              {/*can you add only when mose is moved, than it will hover the image to let user know that user can edit the profile */}
-              {isHovering && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 rounded-full transition-opacity duration-300 ease-in-out">
-          <BsImage className="text-white text-3xl" />
-        </div>
-      )}
-              
 
-</div> 
-</div>
-
-
-
-
-
-
-
-
-
-
-
-            {/* User's Name */}
-            <div className="flex flex-col">
-          <p className="text-lg font-semibold text-gray-900 dark:text-white">{user?.firstname} {user?.lastname}</p>
-          {/* <p className="text-sm text-gray-500 dark:text-gray-400">{user?.email}</p> */}
-        </div>
+        <p className="text-xl font-semibold text-black dark:text-gray-300">
+          {user?.firstname} {user?.lastname}
+        </p>
       </div>
 
-          </div>
-        </div>
-
-
-      {/* Conditionally Render EditProfilePicture Modal */}
       {isModalOpen && (
-  <EditProfilePicture
-    profileImage={profileImage}
-    onClose={() => setIsModalOpen(false)}  // Close modal
-    onImageChange={handleImageChange}  // Handle image upload
-  />
-)}
+        <EditProfilePicture
+          profileImage={profileImage}
+          onClose={() => setIsModalOpen(false)}
+          onImageChange={handleImageChange}
+        />
+      )}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
       <form onSubmit={handleSubmit(submitHandler)} className="space-y-5 mt-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <InputField
             name="firstname"
             label="First Name"
@@ -309,20 +156,18 @@ const handleImageChange = async (e) => {
             error={errors.lastname ? errors.lastname.message : ""}
           />
         </div>
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-        <InputField
-          type='email'
-          name='email'
-          label='Email Address'
-          // readOnly={true}
-          placeholder='John@example.com'
-          register={register("email", {
-            required: "Email Address is required!",
-          })}
-          error={errors.email ? errors.email.message : ""}
-        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <InputField
+            type="email"
+            name="email"
+            label="Email Address"
+            placeholder="John@example.com"
+            register={register("email", { required: "Email Address is required!" })}
+            error={errors.email ? errors.email.message : ""}
+            readOnly
+          />
         </div>
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <InputField
             type="tel"
             name="contact"
@@ -333,8 +178,8 @@ const handleImageChange = async (e) => {
           />
         </div>
         <div className="flex justify-end gap-4">
-          <Button type="reset" label="Reset" className="px-6 bg-transparent text-black dark:text-white border border-gray-200 dark:border-gray-700 rounded-md" />
-          <Button loading={loading} type="submit" label="Save" className="px-8 bg-blue-600 hover:bg-blue-700 text-white rounded-md" />
+          <Button type="reset" label="Reset" className="px-6 py-2 bg-transparent text-gray-700 dark:text-white border border-gray-200 dark:border-gray-700 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" />
+          <Button loading={loading} type="submit" label="Save" className="px-8 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md shadow-md transform hover:scale-105 transition-transform" />
         </div>
       </form>
     </div>

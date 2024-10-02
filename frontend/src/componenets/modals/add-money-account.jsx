@@ -69,7 +69,7 @@ const AddMoney = ({ isOpen, setIsOpen, id, refetch }) => {
               label={`Submit ${
                 watch("amount") ? formatCurrency(watch("amount")) : ""
               }`}
-              className='bg-blue-700 text-white w-full'
+              className='bg-violet-700 text-white w-full'
             />
           </div>
         </form>

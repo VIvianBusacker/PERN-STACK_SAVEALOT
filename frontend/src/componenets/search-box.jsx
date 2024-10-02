@@ -17,7 +17,7 @@ const SearchBox = () => {
 
       {/* <Menu as='div' className='relative  z-40'>
         <div>
-          <Menu.Button className='flex items-center gap-2 bg-black dark:bg-blue-800 py-2 px-4 rounded'>
+          <Menu.Button className='flex items-center gap-2 bg-black dark:bg-violet-800 py-2 px-4 rounded'>
             <IoFilterSharp className='text-white text-xl' />
             <span className='text-white text-base'>Filter</span>
           </Menu.Button>
@@ -31,7 +31,7 @@ const SearchBox = () => {
                     to='/settings'
                     className={`${
                       active
-                        ? "bg-blue-500/10 text-gray-900 dark:text-white"
+                        ? "bg-violet-500/10 text-gray-900 dark:text-white"
                         : "text-gray-900 dark:text-gray-500"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
@@ -44,7 +44,7 @@ const SearchBox = () => {
                   <button
                     className={`${
                       active
-                        ? "bg-blue-500/10 text-gray-900 dark:text-white"
+                        ? "bg-violet-500/10 text-gray-900 dark:text-white"
                         : "text-gray-900 dark:text-gray-500"
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >

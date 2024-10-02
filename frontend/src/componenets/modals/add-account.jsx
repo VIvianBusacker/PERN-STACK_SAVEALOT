@@ -143,7 +143,7 @@ const AddAccount = ({ isOpen, setIsOpen, refetch }) => {
                   loading={loading}
                   type="submit"
                   label="Create Account"
-                  className="bg-blue-700 text-white w-full mt-4"
+                  className="bg-violet-700 text-white w-full mt-4"
                 />
               </div>
             </>
