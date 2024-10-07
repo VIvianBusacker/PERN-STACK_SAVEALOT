@@ -1,8 +1,8 @@
-import React from "react";
+// import React from "react";
 import { BsCashCoin, BsCurrencyDollar } from "react-icons/bs";
 import { SiCashapp } from "react-icons/si";
 
-import { formatCurrency } from "../libs"; // Ensure the correct path is used for the formatCurrency function
+import { formatCurrency } from "../libs";
 import { Card } from "./ui/card";
 
 const ICON_STYLES = [
@@ -11,23 +11,24 @@ const ICON_STYLES = [
   "bg-rose-300 text-rose-800",
 ];
 
-const Stats = ({ dt }) => {
+const Stats = ({ dt = {} }) => {
+  // Ensure dt object has fallback values to avoid errors
   const data = [
     {
       label: "Total Balance",
-      amount: dt?.balance,
+      amount: dt.balance || 0, // Fallback to 0 if balance is undefined
       increase: 10.9,
       icon: <BsCurrencyDollar size={26} />,
     },
     {
       label: "Total Income",
-      amount: dt?.income,
+      amount: dt.income || 0, // Fallback to 0 if income is undefined
       icon: <BsCashCoin size={26} />,
       increase: 8.9,
     },
     {
       label: "Total Expense",
-      amount: dt?.expense,
+      amount: dt.expense || 0, // Fallback to 0 if expense is undefined
       icon: <SiCashapp size={26} />,
       increase: -10.9,
     },
@@ -48,7 +49,7 @@ const Stats = ({ dt }) => {
               {item.label}
             </span>
             <p className="text-2xl font-medium text-black 2xl:text-3xl dark:text-gray-400">
-              {formatCurrency(item?.amount || 0.0)} {/* Formatting the amount */}
+              {formatCurrency(item.amount)}
             </p>
             <span className="text-xs text-gray-600 md:text-sm 2xl:text-base dark:text-gray-500">
               Overall {item.label}
@@ -62,8 +63,8 @@ const Stats = ({ dt }) => {
   return (
     <div className="flex flex-col items-center justify-between gap-8 mb-20 md:flex-row 2xl:gap-x-40">
       <div className="flex flex-col items-center justify-between w-full gap-10 md:flex-row 2xl:gap-20 ">
-        {data?.map((item, index) => (
-          <ItemCard key={index} item={item} index={index} />
+        {data.map((item, index) => (
+          <ItemCard key={item.label} item={item} index={index} />
         ))}
       </div>
     </div>
